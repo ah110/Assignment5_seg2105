@@ -44,6 +44,15 @@ https://github.com/ah110/Assignment5_seg2105/tree/master/Diagram
 contains class diagram and state diagram
 contains class diagram and state diagram
 
+Usage:
+-------
+Open android studio
+open project
+run app
+
+apk file:
+https://github.com/ah110/Assignment5_seg2105/blob/master/app-debug.apk
+
 
 Architecture:
 ----------------
