@@ -1,3 +1,10 @@
+/*
+ * calculator
+ *author Andy Huang < chuan110@uottawa.ca
+ *
+ */
+
+
 package com.example.a5_seg2105;
 
 import  androidx.appcompat.app.AppCompatActivity;
@@ -8,10 +15,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 
-public class MainActivity extends AppCompatActivity{
+import static java.math.BigDecimal.valueOf;
+
+
+public class MainActivity extends BaseActivity{
     boolean change = false;
     TextView screen;
+    TextView operationscreen;
     Button bt0;
     Button bt1;
     Button bt2;
@@ -29,9 +42,9 @@ public class MainActivity extends AppCompatActivity{
     Button clear;
     Button equal;
     Button dot;
-    double v1 = 0;
-    double v2 = 0;
-    double ans = 0;
+    BigDecimal v1 = valueOf(0);
+    BigDecimal v2 = valueOf(0);
+    BigDecimal ans = valueOf(0);
     String operation = "";
 
     @Override
@@ -40,6 +53,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         //connect variables to layout
         screen = findViewById(R.id.screen);
+        operationscreen=findViewById(R.id.textView);
         bt0 = findViewById(R.id.bt0);
         bt1 = findViewById(R.id.bt1);
         bt2 = findViewById(R.id.bt2);
@@ -64,7 +78,7 @@ public class MainActivity extends AppCompatActivity{
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")) {
+                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")||screen.getText().equals("Error")) {
                     screen.setText("0");
                     change =false;
 
@@ -78,7 +92,7 @@ public class MainActivity extends AppCompatActivity{
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")) {
+                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")||screen.getText().equals("Error")) {
                     screen.setText("1");
                     change =false;
 
@@ -91,7 +105,7 @@ public class MainActivity extends AppCompatActivity{
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")) {
+                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")||screen.getText().equals("Error")) {
                     screen.setText("2");
                     change =false;
 
@@ -104,7 +118,7 @@ public class MainActivity extends AppCompatActivity{
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")) {
+                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")||screen.getText().equals("Error")) {
                     screen.setText("3");
                     change =false;
 
@@ -118,7 +132,7 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
-                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")) {
+                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")||screen.getText().equals("Error")) {
                     screen.setText("4");
                     change =false;
 
@@ -131,7 +145,7 @@ public class MainActivity extends AppCompatActivity{
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")) {
+                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")||screen.getText().equals("Error")) {
                     screen.setText("5");
                     change =false;
 
@@ -144,7 +158,7 @@ public class MainActivity extends AppCompatActivity{
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")) {
+                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")||screen.getText().equals("Error")) {
                     screen.setText("6");
                     change =false;
                 } else {
@@ -156,7 +170,7 @@ public class MainActivity extends AppCompatActivity{
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")) {
+                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")||screen.getText().equals("Error")) {
                     screen.setText("7");
                     change =false;
                 } else {
@@ -168,7 +182,7 @@ public class MainActivity extends AppCompatActivity{
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")) {
+                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")||screen.getText().equals("Error")) {
                     screen.setText("8");
                     change =false;
                 } else {
@@ -180,7 +194,7 @@ public class MainActivity extends AppCompatActivity{
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")) {
+                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")||screen.getText().equals("Error")) {
                     screen.setText("9");
                     change =false;
 
@@ -196,8 +210,8 @@ public class MainActivity extends AppCompatActivity{
                 if(screen.getText().toString().contains(".")){
                     return;
                 }
-                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")) {
-                    screen.setText(".");
+                if (screen.getText().equals("0")|| change||screen.getText().equals("Over max")||screen.getText().equals("Error")) {
+                    screen.setText("0.");
                     change =false;
 
                 } else {
@@ -205,6 +219,7 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         });
+        //operations set operation and display answer
         plus.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -217,26 +232,27 @@ public class MainActivity extends AppCompatActivity{
                     x=x.substring(0,7);
                 }
 
-                double value = Double.parseDouble(x);
-                if (v1 == 0) {
-                    v1 = value;
+
+                if (v1.compareTo(new BigDecimal("0"))==0 ) {
+                    v1 = new BigDecimal(x);
                     operation = "+";
+                    operationscreen.setText("Operation =  + plus");
                     screen.setText("");
                 }
                 else {
-                    v2=value;
+                    v2=new BigDecimal(x);
+                    if(v2.compareTo(new BigDecimal("0"))==0 &&operation.equals("/")){
+                        screen.setText("Error");
+                        reset();
+                        return;
+                    }
                     getAns();
-                    if(ans>9999999){
+                    if(ans.compareTo(new BigDecimal("9999999")) > 0) {
                         screen.setText("Over max");
                         reset();
                         return;
                     }
-                    if (isInt(ans)){
-                        screen.setText(String.valueOf((int)ans));
-                    }
-                    else {
-                        screen.setText(Double.toString(ans));
-                    }
+                    screen.setText(printAns(ans.toString()));
                     reset();
                     change=true;
                 }
@@ -255,26 +271,26 @@ public class MainActivity extends AppCompatActivity{
                 if(x.equals("")){
                     return;
                 }
-                double value = Double.parseDouble(x);
-                if (v1 == 0) {
-                    v1 = value;
+                if (v1.compareTo(new BigDecimal("0"))==0 ) {
+                    v1 = new BigDecimal(x);
                     operation = "-";
+                    operationscreen.setText("Operation =  - minus");
                     screen.setText("");
                 }
                 else {
-                    v2=value;
+                    v2=new BigDecimal(x);
+                    if(v2.compareTo(new BigDecimal("0"))==0 &&operation.equals("/")){
+                        screen.setText("Error");
+                        reset();
+                        return;
+                    }
                     getAns();
-                    if(ans>9999999){
+                    if(ans.compareTo(new BigDecimal("9999999")) > 0) {
                         screen.setText("Over max");
                         reset();
                         return;
                     }
-                    if (isInt(ans)){
-                        screen.setText(String.valueOf((int)ans));
-                    }
-                    else {
-                        screen.setText(Double.toString(ans));
-                    }
+                    screen.setText(printAns(ans.toString()));
                     reset();
                     change=true;
                 }
@@ -293,26 +309,26 @@ public class MainActivity extends AppCompatActivity{
                 if(x.equals("")){
                     return;
                 }
-                double value = Double.parseDouble(x);
-                if (v1 == 0) {
-                    v1 = value;
+                if (v1.compareTo(new BigDecimal("0"))==0 ) {
+                    v1 = new BigDecimal(x);
                     operation = "*";
+                    operationscreen.setText("Operation =  * times");
                     screen.setText("");
                 }
                 else {
-                    v2=value;
+                    v2=new BigDecimal(x);
+                    if(v2.compareTo(new BigDecimal("0"))==0 &&operation.equals("/")){
+                        screen.setText("Error");
+                        reset();
+                        return;
+                    }
                     getAns();
-                    if(ans>9999999){
+                    if(ans.compareTo(new BigDecimal("9999999")) > 0) {
                         screen.setText("Over max");
                         reset();
                         return;
                     }
-                    if (isInt(ans)){
-                        screen.setText(String.valueOf((int)ans));
-                    }
-                    else {
-                        screen.setText(Double.toString(ans));
-                    }
+                    screen.setText(printAns(ans.toString()));
                     reset();
                     change=true;
                 }
@@ -331,26 +347,26 @@ public class MainActivity extends AppCompatActivity{
                 if(x.equals("")){
                     return;
                 }
-                double value = Double.parseDouble(x);
-                if (v1 == 0) {
-                    v1 = value;
+                if (v1.compareTo(new BigDecimal("0"))==0 ) {
+                    v1 = new BigDecimal(x);
                     operation = "/";
+                    operationscreen.setText("Operation =  / division");
                     screen.setText("");
                 }
                 else {
-                    v2=value;
+                    v2=new BigDecimal(x);
+                    if(v2.compareTo(new BigDecimal("0"))==0 &&operation.equals("/")){
+                        screen.setText("Error");
+                        reset();
+                        return;
+                    }
                     getAns();
-                    if(ans>9999999){
+                    if(ans.compareTo(new BigDecimal("9999999")) > 0) {
                         screen.setText("Over max");
                         reset();
                         return;
                     }
-                    if (isInt(ans)){
-                        screen.setText(String.valueOf((int)ans));
-                    }
-                    else {
-                        screen.setText(Double.toString(ans));
-                    }
+                    screen.setText(printAns(ans.toString()));
                     reset();
                     change=true;
                 }
@@ -369,32 +385,30 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 String x = screen.getText().toString();
-                if(x.length()>7){
-                    x=x.substring(0,7);
+                if(x.length()>7) {
+                    x = x.substring(0, 7);
                 }
                 if(x.equals("")){
                     return;
                 }
-                double value = Double.parseDouble(x);
+
                 if (operation.equals("")) {
                     return;
-
-
                 }
                 else {
-                    v2=value;
+                    v2=new BigDecimal(x);
+                    if(v2.compareTo(new BigDecimal("0"))==0 &&operation.equals("/")){
+                        screen.setText("Error");
+                        reset();
+                        return;
+                    }
                     getAns();
-                    if(ans>9999999){
+                    if(ans.compareTo(new BigDecimal("9999999")) > 0) {
                         screen.setText("Over max");
                         reset();
                         return;
                     }
-                    if (isInt(ans)){
-                        screen.setText(String.valueOf((int)ans));
-                    }
-                    else {
-                        screen.setText(Double.toString(ans));
-                    }
+                    screen.setText(printAns(ans.toString()));
                     reset();
                     change=true;
                 }
@@ -404,29 +418,49 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+    /*
+     * //reset the calculator()
+     *author Andy Huang < chuan110@uottawa.ca
+     *
+     */
     public void reset() {
-        v1 = 0;
-        v2 = 0;
+        v1 = valueOf(0);;
+        v2 = valueOf(0);
         operation = "";
+        operationscreen.setText("Max seven digit (Ex.9999999 or 9999.99)");
     }
-
+    /*
+     * getanswer()
+     *author Andy Huang < chuan110@uottawa.ca
+     *
+     */
     public void getAns() {
+        //get answer and round to 7 decimal play when doing division
         if (operation.equals("+")) {
-            ans = v1 + v2;
+            ans = v1.add(v2);
         }
         if (operation.equals("/")) {
-            ans = v1 / v2;
+            MathContext mc = new MathContext(7);
+            ans = v1.divide(v2,mc);
         }
         if (operation.equals("*")) {
-            ans = v1 * v2;
+            ans = v1.multiply(v2);
         }
         if (operation.equals("-")) {
-            ans = v1 - v2;
+            ans = v1.subtract(v2);
         }
+
+    }
+    /*
+     * remove all the ned zeros of the string printAns()
+     *author Andy Huang < chuan110@uottawa.ca
+     *
+     */
+    public String printAns(String s){
+        s = !s.contains(".") ? s : s.replaceAll("0*$", "").replaceAll("\\.$", "");
+        return s;
     }
 
-    public boolean isInt(double ans) {
-        return ans == (int) ans;
-    }
+
 }
 

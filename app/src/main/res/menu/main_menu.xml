@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    //this is the menu bar and setting up each items
+    <item android:id="@+id/normal"
+        android:title="Basic Calculator"
+        app:showAsAction="never"/>
+    <item android:id="@+id/trig"
+        android:title="Trigonometry Calculator"
+        app:showAsAction="never">
+        <menu>
+            <item android:id="@+id/rt"
+                android:title="Right Triangles"/>
+
+            <item android:id="@+id/tf"
+                android:title="Trigonometric functions calculator"/>
+
+        </menu>
+    </item>
+    <item android:id="@+id/help"
+        android:title="Help"
+        app:showAsAction="never">
+        <menu>
+            <item android:id="@+id/questions"
+                android:title="Questions"/>
+
+            <item android:id="@+id/credit"
+                android:title="Credit"/>
+
+        </menu>
+    </item>
+
+
+</menu>
+
