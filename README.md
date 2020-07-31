@@ -22,16 +22,16 @@ User Stories:
 -----------------
 	1.As a user, a basic calculator should be able to enter number from 0 to 9, so that i can enter any number.
 	2.As a user, a basic calculator should have a “=” to click, and produce answer, so that i can get a answer.
-3 .As a user, a basic calculator should have “+”,”-”,”/”,”*”  to click perferman basic math operation,so that it can calculate questions.
-4.As a user, a basic calculator should be able to enter decimal value, so that I can enter decimal value.
-5.As a user, a basic calculator should have a “clear” to click, so that I can start new question.
-6.As a user, a basic calculator should be able continue doing operation all the time, so that i can do multiple calculation.
-7.As a user, a right triangle calculator should be able to find angle base on sides.
-8,.As a user, a right triangle calculator should be able to find sides base on angle and one side.
-9..As a user, a trig function calculator should be able to choose different trig functions. 
-10.As a user,triangle calculator should have a”calculate” button, so that it can start calculate.
-11.As a user, triangle calculator should have a “reset: button, so that it can empty all the info, and restart a new one.
-12.As a user, triangle calculator should have a unit that can choose between “degree” and “radians” , so that i can choose the format i need.
+	3 .As a user, a basic calculator should have “+”,”-”,”/”,”*”  to click perferman basic math operation,so that it can calculate questions.
+	4.As a user, a basic calculator should be able to enter decimal value, so that I can enter decimal value.
+	5.As a user, a basic calculator should have a “clear” to click, so that I can start new question.
+	6.As a user, a basic calculator should be able continue doing operation all the time, so that i can do multiple calculation.
+	7.As a user, a right triangle calculator should be able to find angle base on sides.
+	8,.As a user, a right triangle calculator should be able to find sides base on angle and one side.
+	9..As a user, a trig function calculator should be able to choose different trig functions. 
+	10.As a user,triangle calculator should have a”calculate” button, so that it can start calculate.
+	11.As a user, triangle calculator should have a “reset: button, so that it can empty all the info, and restart a new one.
+	12.As a user, triangle calculator should have a unit that can choose between “degree” and “radians” , so that i can choose the format i need.
 User Interface:
 --------------
 https://github.com/ah110/Assignment5_seg2105/tree/master/UI./
